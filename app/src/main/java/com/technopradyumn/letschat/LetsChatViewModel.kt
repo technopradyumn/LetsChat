@@ -200,7 +200,6 @@ class LetsChatViewModel @Inject constructor(
         }
         val errorMessage = exception?.localizedMessage ?: ""
         val message = customMessage.ifEmpty { errorMessage }
-        eventMutableState = Events(message)
         inProcess = false
     }
 

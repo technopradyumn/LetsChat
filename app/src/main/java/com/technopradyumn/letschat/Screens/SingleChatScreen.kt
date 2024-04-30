@@ -121,11 +121,11 @@ fun SingleChatScreen(function: () -> Unit, chatId: String) {
                     items(messagesState.reversed()) { message ->
                         val isCurrentUser = message.sendBy == currentUserId
 
-                        val backgroundColor = if (isCurrentUser) Color.White else MaterialTheme.colorScheme.primary
+                        val backgroundColor = if (!isCurrentUser) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.primary
 
-                        val textColor = if (!isCurrentUser) Color.White else MaterialTheme.colorScheme.primary
+                        val textColor = if (!isCurrentUser) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onPrimary
 
-                        val alignment = if (isCurrentUser) Alignment.End else Alignment.Start
+                        val alignment = if (!isCurrentUser) Alignment.Start else Alignment.End
 
                         Column(
                             modifier = Modifier
@@ -160,8 +160,8 @@ fun SingleChatScreen(function: () -> Unit, chatId: String) {
 
                                     Text(
                                         text = message.timeStamp ?: "",
-                                        fontSize = 10.sp,
                                         color = textColor,
+                                        fontSize = 10.sp,
                                     )
                                 }
                             }
@@ -255,7 +255,7 @@ fun ReplyBox(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            TextField(
+            OutlinedTextField(
                 value = reply,
                 onValueChange = onReplyChange,
                 maxLines = 3,
