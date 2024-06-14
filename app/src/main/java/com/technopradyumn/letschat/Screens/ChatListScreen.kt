@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -66,27 +67,37 @@ fun ChatListScreen(
 
     Scaffold(
         topBar = {
-            Surface(
+            Card(
+                shape = RoundedCornerShape(0.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
-                color = MaterialTheme.colorScheme.primary // Set the background color here
+                elevation = CardDefaults.cardElevation( // Set elevation here
+                    defaultElevation = 10.dp
+                )
             ) {
-                Box(
+                Surface(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp),
-                    contentAlignment = Alignment.CenterStart
+                        .fillMaxSize(),
+                    color = MaterialTheme.colorScheme.primary // Set the background color here
                 ) {
-                    Text(
-                        text = "Let's Chat",
-                        style = TextStyle(
-                            MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 20.sp
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(start = 16.dp),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            text = "Let's Chat",
+                            style = TextStyle(
+                                MaterialTheme.colorScheme.onPrimary,
+                                fontSize = 20.sp
+                            )
                         )
-                    )
+                    }
                 }
             }
+
         },
         floatingActionButton = {
             Fab(

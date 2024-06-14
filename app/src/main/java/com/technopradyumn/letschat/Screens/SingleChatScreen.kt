@@ -7,12 +7,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.material.icons.rounded.SupervisedUserCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -26,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -135,7 +138,10 @@ fun SingleChatScreen(function: () -> Unit, chatId: String) {
                         ) {
                             Card(
                                 modifier = Modifier
-                                    .wrapContentSize()
+                                    .wrapContentSize(),
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 10.dp
+                                )
                             ) {
                                 Column(
                                     modifier = Modifier
@@ -188,57 +194,66 @@ fun SingleChatScreen(function: () -> Unit, chatId: String) {
 
 @Composable
 fun ChatHeader(name: String, imageUrl: String, onBackClicked: () -> Unit) {
-    Surface(
+    Card(
+        shape = RoundedCornerShape(0.dp),
         modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        color = MaterialTheme.colorScheme.primary
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 20.dp
+        )
     ) {
-        Row(
+        Surface(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .padding(start = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .wrapContentHeight(),
+            color = MaterialTheme.colorScheme.primary
         ) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowBackIosNew,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimary,
+            Row(
                 modifier = Modifier
-                    .size(24.dp)
-                    .clickable { onBackClicked() }
-            )
+                    .fillMaxWidth()
+                    .height(64.dp)
+                    .padding(start = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.ArrowBackIosNew,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable { onBackClicked() }
+                )
 
-            Spacer(modifier = Modifier.widthIn(16.dp))
+                Spacer(modifier = Modifier.widthIn(16.dp))
 
-            Icon(
-                imageVector = Icons.Rounded.SupervisedUserCircle,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier
-                    .size(48.dp)
-            )
+                Icon(
+                    imageVector = Icons.Rounded.SupervisedUserCircle,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier
+                        .size(48.dp)
+                )
 
-//            CommonImage(
-//                data = imageUrl,
-//                modifier = Modifier
-//                    .padding(8.dp)
-//                    .size(50.dp)
-//                    .clip(CircleShape),
-//                onClick = {}
-//            )
+                //            CommonImage(
+                //                data = imageUrl,
+                //                modifier = Modifier
+                //                    .padding(8.dp)
+                //                    .size(50.dp)
+                //                    .clip(CircleShape),
+                //                onClick = {}
+                //            )
 
-            Spacer(modifier = Modifier.widthIn(16.dp))
+                Spacer(modifier = Modifier.widthIn(16.dp))
 
-            Text(
-                text = name,
-                modifier = Modifier,
-                style = TextStyle(MaterialTheme.colorScheme.onPrimary, fontSize = 20.sp)
-            )
+                Text(
+                    text = name,
+                    modifier = Modifier,
+                    style = TextStyle(MaterialTheme.colorScheme.onPrimary, fontSize = 20.sp)
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun ReplyBox(

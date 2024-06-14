@@ -20,13 +20,6 @@ data class ChatData(
     val user2:ChatUser = ChatUser()
 )
 
-data class ChatUser(
-    var userId: String? = "",
-    var name: String?="",
-    var number: String?="",
-    var imageUrl: String? = ""
-)
-
 data class Message(
     var sendBy: String? = "",
     var message: String? = "",
@@ -35,6 +28,13 @@ data class Message(
 )
 
 data class OppositeUser(
+    var userId: String? = "",
+    var name: String?="",
+    var number: String?="",
+    var imageUrl: String? = ""
+)
+
+data class ChatUser(
     var userId: String? = "",
     var name: String?="",
     var number: String?="",

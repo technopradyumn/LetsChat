@@ -16,7 +16,9 @@ import com.technopradyumn.letschat.Screens.StatusScreen
 import com.technopradyumn.letschat.navigation.BottomBarScreen
 
 @Composable
-fun HomeNavGraph(navController: NavHostController) {
+fun HomeNavGraph(
+    navController: NavHostController
+) {
     val viewModel:LetsChatViewModel = hiltViewModel()
     NavHost(
         navController = navController,

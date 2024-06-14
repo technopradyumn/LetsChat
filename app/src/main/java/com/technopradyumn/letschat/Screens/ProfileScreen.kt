@@ -20,10 +20,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -86,15 +88,19 @@ fun ProfileScreen(
     }
     androidx.compose.material3.Scaffold(
         topBar = {
-            Surface(
+            Card(
+                shape = RoundedCornerShape(0.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
-                color = MaterialTheme.colorScheme.primary // Set the background color here
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 20.dp
+                ),
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.primary)
                         .padding(start = 16.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {

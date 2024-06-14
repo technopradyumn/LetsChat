@@ -1,6 +1,7 @@
 package com.technopradyumn.letschat
 
 import android.net.Uri
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.runtime.*
@@ -361,24 +362,35 @@ class LetsChatViewModel @Inject constructor(
         }
     }
 
-    fun createStatus(imageUrl: String){
+    fun createStatus(imageUrl: String) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUserId = currentUser?.uid
         val currentTime = Calendar.getInstance().time
         val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss") // specify the format for date and time
         val time = sdf.format(currentTime)
-        val newStatus = Status(
-            user = ChatUser(
-                userData?.userId,
-                userData?.name,
-                userData?.number,
-                userData?.imageUrl
-            ),
-            imageUrl = imageUrl,
-            timeStamp = time,
-        )
 
-        db.collection(STATUS).document().set(newStatus)
+        currentUserId?.let { userId ->
+            val newStatus = Status(
+                user = ChatUser(
+                    userId,
+                    userData?.name,
+                    userData?.number,
+                    userData?.imageUrl
+                ),
+                imageUrl = imageUrl,
+                timeStamp = time
+            )
 
+            db.collection(STATUS).document(userId).set(newStatus)
+                .addOnSuccessListener {
+                    Log.d("StatusScreen", "Status document successfully written!")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("StatusScreen", "Error writing status document", e)
+                }
+        }
     }
+
 
     fun storeImage(imageUri: Uri, onSuccess: (String) -> Unit) {
         val fileName = "${UUID.randomUUID()}"
